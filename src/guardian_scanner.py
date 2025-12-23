@@ -473,15 +473,109 @@ class GuardianScanner:
         
         self.snapshot['run'] = run
     
-    def generate_mdc(self) -> str:
-        """Generate the MDC file content."""
+    def generate_file_index_markdown(self) -> str:
+        """
+        Generate a comprehensive file index as markdown.
+        This is saved separately and NOT included in LLM-facing MDC files.
+        
+        Returns:
+            Full file listing in markdown format
+        """
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M')
         
-        # Build files section
-        files_str = ""
+        # Group files by directory
+        files_by_dir = {}
         for path, info in sorted(self.snapshot['files'].items()):
-            funcs = ', '.join(info['functions'][:5]) if info['functions'] else '-'
-            files_str += f"{path}: {info['purpose']} | {funcs}\n"
+            dir_name = str(Path(path).parent) if Path(path).parent != Path('.') else '(root)'
+            if dir_name not in files_by_dir:
+                files_by_dir[dir_name] = []
+            files_by_dir[dir_name].append((path, info))
+        
+        # Build comprehensive markdown
+        md = f"""# 📂 Complete File Index
+> Generated: {timestamp}
+> This file contains a comprehensive listing of all project files.
+> **Note**: This is for reference only and is NOT included in LLM context.
+
+## 📊 Summary
+- **Total Files**: {len(self.snapshot['files'])}
+- **Directories**: {len(files_by_dir)}
+
+---
+
+"""
+        
+        # Add files by directory
+        for dir_name in sorted(files_by_dir.keys()):
+            md += f"\n## 📁 {dir_name}\n\n"
+            for path, info in files_by_dir[dir_name]:
+                funcs = ', '.join(info['functions'][:5]) if info['functions'] else '-'
+                md += f"### {Path(path).name}\n"
+                md += f"- **Path**: `{path}`\n"
+                md += f"- **Purpose**: {info['purpose']}\n"
+                md += f"- **Functions**: {funcs}\n\n"
+        
+        md += "\n---\n\n*🛡️ Guardian File Index - For reference, not for LLM context*\n"
+        
+        return md
+    
+    def save_file_index(self, guardian_dir: Optional[Path] = None) -> Path:
+        """
+        Save full file index to .guardian/file_index.md
+        
+        Args:
+            guardian_dir: Guardian directory path (default: .guardian in project root)
+            
+        Returns:
+            Path to saved file index
+        """
+        if guardian_dir is None:
+            guardian_dir = self.project_path / '.guardian'
+        
+        guardian_dir.mkdir(parents=True, exist_ok=True)
+        file_index_path = guardian_dir / 'file_index.md'
+        
+        content = self.generate_file_index_markdown()
+        file_index_path.write_text(content)
+        
+        print(f"   📄 Full file index saved: {file_index_path}")
+        return file_index_path
+    
+    def generate_mdc(self) -> str:
+        """
+        Generate COMPACT MDC file content for LLM context.
+        Full file index is saved separately in .guardian/file_index.md
+        """
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M')
+        
+        # Build COMPACT files section (max 50 files + directory summary)
+        files_str = ""
+        file_count = 0
+        max_files = 50
+        
+        # Group files by directory for summary
+        dir_summary = {}
+        for path, info in sorted(self.snapshot['files'].items()):
+            dir_name = str(Path(path).parent) if Path(path).parent != Path('.') else '(root)'
+            if dir_name not in dir_summary:
+                dir_summary[dir_name] = 0
+            dir_summary[dir_name] += 1
+            
+            # Only show first 50 files in detail
+            if file_count < max_files:
+                funcs = ', '.join(info['functions'][:3]) if info['functions'] else '-'
+                files_str += f"{path}: {info['purpose']} | {funcs}\n"
+                file_count += 1
+        
+        # Add summary line if more files exist
+        total_files = len(self.snapshot['files'])
+        if total_files > max_files:
+            files_str += f"\n... and {total_files - max_files} more files\n"
+        
+        # Add directory summary
+        files_str += f"\n📊 Directory Summary ({len(dir_summary)} directories):\n"
+        for dir_name, count in sorted(dir_summary.items(), key=lambda x: -x[1])[:10]:
+            files_str += f"  {dir_name}: {count} files\n"
         
         # Build dependencies section
         deps_frontend = '\n  '.join(f"{k}: {v}" for k, v in self.snapshot['dependencies']['frontend'].items())
@@ -549,8 +643,11 @@ optional:
 
 ## FILES
 > 📂 CHECK HERE BEFORE CREATING ANY FILE
+> 📄 Full listing: `.guardian/file_index.md` (NOT for LLM context)
 ```
 {files_str if files_str else '# No code files detected'}
+
+💡 For complete file listing, open and review: .guardian/file_index.md
 ```
 
 ---

@@ -1,12 +1,14 @@
 {
   "name": "guardian-h",
-  "version": "6.4.0",
-  "description": "🛡️ Guardian-H - Your AI Agent's Memory System",
+  "version": "7.0.0",
+  "description": "🛡️ Guardian-H - Advanced AI Agent Memory & Decision Support System",
   "bin": {
-    "guardian-h": "./bin/create-guardian.js"
+    "guardian-h": "./bin/create-guardian.js",
+    "guardian-enhanced": "./bin/guardian-enhanced.js"
   },
   "scripts": {
-    "scan": "node bin/create-guardian.js"
+    "scan": "node bin/create-guardian.js",
+    "enhanced": "node bin/guardian-enhanced.js"
   },
   "keywords": [
     "ai",
@@ -16,7 +18,10 @@
     "copilot",
     "memory",
     "project-rules",
-    "guardian"
+    "guardian",
+    "decision-support",
+    "quality-control",
+    "code-health"
   ],
   "author": "Haitham",
   "license": "MIT",

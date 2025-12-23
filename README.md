@@ -2,34 +2,53 @@
 
 # 🛡️ Guardian-H
 
-### Your AI Agent's Memory System | نظام ذاكرة الوكيل الذكي
+### Advanced AI Agent Memory & Decision Support System
+### نظام متقدم للذاكرة ودعم القرارات للوكلاء الذكيين
 
 <img src="assets/logo.png" alt="Guardian-H Logo" width="200"/>
 
-**It discovers your project. It remembers everything. You never repeat yourself.**
+**It remembers everything. It prevents conflicts. It maintains quality.**
 
-**يكتشف مشروعك. يتذكر كل شيء. لا تكرر نفسك أبداً.**
+**يتذكر كل شيء. يمنع التعارضات. يحافظ على الجودة.**
 
 [![npm version](https://img.shields.io/npm/v/guardian-h.svg)](https://www.npmjs.com/package/guardian-h)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[🌐 Web Generator](https://haithamhaj.github.io/guardian-h/) | [📚 Docs](docs/) | [🇸🇦 العربية](#arabic)
+[🌐 Web Generator](https://haithamhaj.github.io/guardian-h/) | [📚 Enhanced Guide](docs/ENHANCED_GUIDE.md) | [🇸🇦 الدليل العربي](docs/ENHANCED_GUIDE_AR.md)
 
 </div>
 
 ---
 
-## 🌟 What's New in v6.1
+## 🚀 What's New in v7.0
+
+🎯 **Solving the 26 Pain Points of Working with AI Agents**
 
 | Feature | Description |
 |---------|-------------|
-| ✅ **No Python Required** | Pure JavaScript scanner - works anywhere Node.js runs |
-| 🌐 **3 Installation Methods** | npx, Bash script, or Web generator |
-| 🧠 **AI Thinking Rules** | Built-in guidelines for better agent decisions |
-| 📐 **Code Principles** | 18+ principles for Performance, Extensibility, Simplicity |
-| 🗺️ **Navigability Rules** | File structure guidelines for AI agents |
-| 🔌 **MCP Server** | Model Context Protocol integration |
+| 🧠 **Enhanced Memory** | Persistent decisions, session tracking, change history |
+| 🎯 **Decision Support** | Technology recommendations, conflict detection, decision locking |
+| 🔍 **Quality Control** | Dead code detection, duplicate finder, structure enforcement |
+| 💊 **Health Monitoring** | Real-time project health, agent fatigue detection |
+| 📊 **Session Management** | Track agent sessions, context preservation |
+| 🔒 **Decision Locking** | Prevent agents from changing locked technical choices |
+| 📝 **Change Verification** | Track and verify all changes made by agents |
+| 🗺️ **Project Snapshots** | Versioned snapshots for rollback support |
+| 🎯 **Mind-Q Adapter** | NEW! Specialized adapter for data pipeline projects |
+
+### 🆕 Mind-Q Guardian Adapter
+
+Specialized extension for **Mind-Q V4.1** logistics data pipelines:
+
+- **Pipeline Spine**: Auto-generates pipeline structure (21 phases, KPIs, flows)
+- **Phase Cards**: Compact markdown cards for each pipeline stage
+- **Context Optimization**: 94% reduction in context size for LLMs
+- **Smart Context**: Auto-detects relevant phases from user requests
+
+[📖 Mind-Q Guardian Guide](docs/MINDQ_GUARDIAN_GUIDE.md)
+
+[📖 Read the Complete v7.0 Guide](docs/ENHANCED_GUIDE.md) | [📖 اقرأ الدليل الكامل](docs/ENHANCED_GUIDE_AR.md)
 
 ---
 
@@ -46,6 +65,9 @@ Agent: Uses port 3000 (yours is 8765)
 
 You: "Add a toast message"
 Agent: Suggests Vue (you use React)
+
+You: "Why did you change React to Vue?"
+Agent: "I forgot we agreed on React"
 ```
 
 **Result:** Hours wasted. Code breaks. Frustration builds.
@@ -54,15 +76,50 @@ Agent: Suggests Vue (you use React)
 
 ## 💡 The Solution
 
-**Guardian creates a project snapshot that any AI agent can understand.**
+**Guardian v7.0 creates a comprehensive memory & decision support system.**
 
 ```
-✅ Discovers your tech stack automatically
-✅ Maps all files and their functions
-✅ Tracks connections between services
-✅ Remembers locked decisions
-✅ Prevents duplicate files
-✅ Guides agent thinking and code quality
+✅ Remembers locked decisions across sessions
+✅ Detects conflicts before they happen
+✅ Prevents duplicate files and dead code
+✅ Tracks agent health and fatigue
+✅ Maintains project quality automatically
+✅ Provides technology recommendations
+✅ Preserves context between conversations
+```
+
+### 🎯 How It Works
+
+1. **Scan & Remember**: Analyzes your project and creates persistent memory
+2. **Lock Decisions**: Lock critical technical choices (React, FastAPI, etc.)
+3. **Guard Changes**: Prevents agents from violating locked decisions
+4. **Track Health**: Monitors code quality and agent behavior
+5. **Verify Changes**: All changes logged and can be verified
+6. **Stay Consistent**: Agents read the same context every time
+
+---
+
+## 🚀 Quick Start
+
+### ⚡ For Basic Features (JavaScript)
+```bash
+npx guardian-h
+```
+
+### 🧠 For Full Features (Enhanced)
+```bash
+# Requires Python 3.7+
+npx guardian-enhanced
+
+# Or install globally
+npm install -g guardian-h
+guardian-enhanced
+```
+
+### Lock Your First Decision
+```bash
+# Lock React as your framework
+guardian-enhanced --lock-decision React frontend_framework "Team has React expertise"
 ```
 
 ---
